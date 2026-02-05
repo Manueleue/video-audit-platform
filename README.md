@@ -126,6 +126,7 @@ Click "Start Intelligent Analysis" and wait for the progress bar. Upon completio
 
 **A:** System FFmpeg is not installed. Please refer to the "Read Before Deployment" section to install it, and ensure you can run ffmpeg -version directly in your terminal.
 
+
 **Q2:** Error CUDA out of memory
 
 **A:** Video memory (VRAM) is insufficient.
@@ -140,6 +141,7 @@ Click "Start Intelligent Analysis" and wait for the progress bar. Upon completio
 **Q3:** Why is the analysis speed slow?
 
 **A:** Video analysis is a compute-intensive task. Speed depends on your GPU performance, video length, and frame extraction density. Using a stronger graphics card (e.g., RTX 3090/4090) will significantly increase speed.
+
 
 **Q4:** Startup script error OSError: ... libcudnn_cnn_infer.so.8
 
