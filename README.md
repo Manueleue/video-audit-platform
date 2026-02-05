@@ -1,3 +1,5 @@
+
+https://github.com/user-attachments/assets/b756dd78-f648-4868-86b2-b3d72143b7f5
 # 🎬 Video Intelligent Audit Platform
 
 A localized video content moderation system based on the **MiniCPM-V 4.5** multimodal large model and **Faster-Whisper** speech recognition. It supports intelligent scene segmentation, sensitive content detection, speech transcription, and automated generation of graphic analysis reports.
