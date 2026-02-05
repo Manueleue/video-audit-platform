@@ -147,7 +147,7 @@ Click "Start Intelligent Analysis" and wait for the progress bar. Upon completio
 
 **A:** This is a common issue in Linux environments. start_server.sh has built-in auto-repair logic. Please ensure you use this script to start the service rather than running the Python command directly.
 
-##📜 License
+## 📜 License
 This project is licensed under the **Apache 2.0 License**.
 The model weights used follow their respective open-source agreements:
 * **MiniCPM-V:** OpenBMB License
