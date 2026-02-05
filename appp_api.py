@@ -5,14 +5,12 @@ import tempfile
 import json
 import subprocess
 from typing import List, Tuple
-# --- 新增：导入 datetime 用于记录时间戳 ---
+# 导入 datetime 用于记录时间戳
 from datetime import datetime
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-# --- 新增：导入 SQLAlchemy ---
+# 导入 SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
-
-# --- 你的原始脚本中的所有 import ---
 import torch
 from transformers import AutoModel, AutoTokenizer
 from decord import VideoReader, cpu
@@ -25,13 +23,14 @@ import numpy as np
 from PIL import Image
 import yt_dlp
 
-# --- 初始化 Flask 应用 ---
+# 初始化 Flask 应用
 app = Flask(__name__)
 CORS(app)  # 允许跨域请求，让前端可以访问
 DOWNLOAD_FOLDER = os.path.join(os.getcwd(), 'downloaded_videos')
 os.makedirs(DOWNLOAD_FOLDER, exist_ok=True)
 
-# ================== 数据库配置 (新增部分) ==================
+# 数据库配置
+
 # 设置数据库文件的路径。这个 'project.db' 文件就是您想要的那个静态、持久化的文件。
 # 它会自动生成在项目目录下的一个名为 'instance' 的文件夹内。
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///project.db'
@@ -61,14 +60,16 @@ class AnalysisLog(db.Model):
         }
 
 
-# ================== 全局默认参数 (无变化) ==================
+# 全局默认参数
+
 MODEL_PATH_DEFAULT = os.getenv("MINICPMV_PATH", "./models/MiniCPM-V-4_5")
 ASR_MODEL_DEFAULT = os.getenv("WHISPER_MODEL", "./models/faster-whisper-base")
 ASR_COMPUTE_TYPE_DEFAULT = "int8_float16"
 
-# ================== 全局模型加载 (无变化) ==================
+# 全局模型加载
+
 print("服务器启动中... 正在加载模型，请稍候...")
-# ================== 新增一个辅助函数 ==================
+
 def analyze_scene_in_chunks(model, tokenizer, scene_data, base_prompt: str, max_frames_per_chunk: int = 30):
     """
     分析一个可能很长的场景，如果帧数超过阈值，则分块处理。
@@ -147,8 +148,7 @@ def load_model_global(model_path: str, use_quant: bool = False):
 def load_asr_model_global(model_name: str, compute_type: str = ASR_COMPUTE_TYPE_DEFAULT):
     from pathlib import Path
     os.environ["HF_HUB_OFFLINE"] = "1"
-    
-    # ==================== 关键修改 ====================
+
     # 强制在 CPU 上运行 ASR，以彻底绕开 cuDNN 兼容性问题
     device = "cpu"
     # 在 CPU 模式下，compute_type 最好使用 'int8' 以获得最佳性能
@@ -170,8 +170,8 @@ asr_model = load_asr_model_global(ASR_MODEL_DEFAULT)
 print("模型加载完毕！服务器已准备就绪。")
 
 
-# ================== 所有工具函数 (无变化) ==================
-# ... (您所有的工具函数都保持原样，这里为了简洁省略，请确保您的文件中保留了它们) ...
+# 所有工具函数 
+
 def map_to_nearest_scale(values: np.ndarray, scale: np.ndarray) -> np.ndarray:
     tree = cKDTree(scale[:, None])
     _, indices = tree.query(values[:, None])
@@ -364,7 +364,8 @@ def get_overall_report_multi(model, tokenizer, frames, tids, partials, overall_t
     )
     return report
 
-# ================== 核心分析逻辑 (无变化) ==================
+# 核心分析逻辑
+
 def run_full_analysis(video_path, params):
     print("开始分析视频:", video_path)
     print("使用参数:", params)
@@ -404,20 +405,20 @@ def run_full_analysis(video_path, params):
         scene_transcripts = [""] * len(scene_data)
     print("开始分场景分析...")
     partials = []
-    # 【新增】从参数中获取每块最大帧数，提供一个默认值
+    # 从参数中获取每块最大帧数，提供一个默认值
     max_frames_per_chunk = params.get('maxFramesPerChunk', 30) 
 
     for i, (scene, transcript) in enumerate(zip(scene_data, scene_transcripts)):
         short_transcript = clip_text(transcript, asr_max_chars)
         
-        # 【修改】我们先构建基础的提示词
+        # 我们先构建基础的提示词
         scene_prompt = (
             f"这是视频的第 {i+1}/{len(scene_data)} 个场景 (时间: {scene['meta']['start_time']:.1f}s - {scene['meta']['end_time']:.1f}s)。\n"
             f"该场景语音转写: {short_transcript or '无'}\n\n"
             f"现在请基于画面和转写文本进行分析: {prompt}"
         )
         
-        # 【核心修改】调用新的分块处理函数
+        # 调用新的分块处理函数
         # part = call_chat(model, tokenizer, scene["frames"], scene["temporal_ids"], scene_prompt) # <- 注释掉旧的调用
         part = analyze_scene_in_chunks(model, tokenizer, scene, scene_prompt, max_frames_per_chunk)
         
@@ -448,7 +449,7 @@ def run_full_analysis(video_path, params):
     return final_result
 
 
-# --- 新增：辅助函数，用于从报告中判断是否违规 ---
+# 辅助函数，用于从报告中判断是否违规
 def determine_violation_status(report_text: str) -> Tuple[bool, str]:
     """
     从完整的分析报告中解析出风险部分，并判断是否存在违规。
@@ -485,7 +486,7 @@ def determine_violation_status(report_text: str) -> Tuple[bool, str]:
         return False, "报告解析失败。"
 
 
-# --- 【新增】用于处理视频下载的接口 ---
+# 用于处理视频下载的接口
 @app.route('/download', methods=['POST'])
 def download_video_endpoint():
     data = request.get_json()
@@ -523,12 +524,11 @@ def download_video_endpoint():
         return jsonify({"error": f"视频下载失败: {str(e)}"}), 500
 
 
-# ================== Flask API 接口 (正确且唯一的版本) ==================
+#Flask API 接口
+
 @app.route('/analyze', methods=['GET', 'POST'])
 def analyze_video_endpoint():
-    # ---------------------------------------------
     # 第一部分：处理 GET 请求
-    # ---------------------------------------------
     if request.method == 'GET':
         # 如果是 GET 请求，就返回一个提示页面，然后函数结束。
         return """
@@ -552,17 +552,15 @@ def analyze_video_endpoint():
         </html>
         """
 
-    # ---------------------------------------------
     # 第二部分：处理 POST 请求
-    # ---------------------------------------------
     # 如果代码能执行到这里，说明 request.method 一定是 'POST'
-     # --- 【核心修改】处理 POST 请求的逻辑 ---
+    # 处理 POST 请求的逻辑 
     user_ip = request.remote_addr
     is_temp_file = False # 标记是否是临时文件，分析完要删除
 
     # 判断是文件上传，还是基于已下载的文件名进行分析
     if 'video' in request.files and request.files['video'].filename != '':
-        # 1. 处理文件上传 (原始逻辑)
+        # 1. 处理文件上传
         video_file = request.files['video']
         video_filename = video_file.filename
         print(f"收到来自 IP [{user_ip}] 的文件上传请求，处理文件: {video_filename}")
@@ -573,7 +571,7 @@ def analyze_video_endpoint():
         is_temp_file = True # 标记为临时文件
 
     elif 'filename' in request.form:
-        # 2. 处理基于已下载文件的分析请求 (新逻辑)
+        # 2. 处理基于已下载文件的分析请求 
         video_filename = request.form.get('filename')
         print(f"收到来自 IP [{user_ip}] 的分析请求，处理已下载文件: {video_filename}")
         
@@ -632,7 +630,7 @@ def analyze_video_endpoint():
         if os.path.exists(video_path):
             os.remove(video_path)
 
-# --- 新增：用于获取所有历史记录的接口 ---
+#用于获取所有历史记录的接口
 @app.route('/logs', methods=['GET'])
 def get_logs():
     """返回数据库中所有的分析日志，按时间倒序排列。"""
@@ -650,7 +648,7 @@ def get_logs():
         })
 
 
-# --- 启动 Flask 服务器 ---
+#启动 Flask 服务器 
 if __name__ == '__main__':
     with app.app_context():
         # 这行代码会自动检查 AnalysisLog 模型，
